@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Auto Detail Pro</title>
+  <meta name="description" content="Contactez-nous pour prendre rendez-vous ou obtenir un devis pour votre detailing automobile." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Nav ──────────────────────────────────────────── -->
+  <nav>
+    <a href="index.html" class="nav-logo">AUTO<span>DETAIL</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Accueil</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#gallery">Galerie</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="nav-burger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ── Page Hero ─────────────────────────────────────── -->
+  <div class="page-hero">
+    <span class="section-label">Contactez-nous</span>
+    <h1 class="section-title">Prenez rendez-vous</h1>
+    <p style="color:var(--muted);max-width:480px;margin:0 auto;">Décrivez votre projet, nous vous répondrons dans les plus brefs délais pour convenir d'un rendez-vous.</p>
+  </div>
+
+  <!-- ── Contact Grid ───────────────────────────────────── -->
+  <div class="contact-grid">
+
+    <!-- Info block -->
+    <div class="contact-info">
+      <h3>Informations</h3>
+
+      <div class="info-item">
+        <div class="info-icon">📍</div>
+        <div class="info-text">
+          <strong>Adresse</strong>
+          <span>Rue du Garage 123 <br> 1000 Lausanne, Suisse</span>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">📞</div>
+        <div class="info-text">
+          <strong>Téléphone</strong>
+          <span>+41 70 000 00 00</span>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">🕐</div>
+        <div class="info-text">
+          <strong>Horaires</strong>
+          <span>Lundi – Vendredi : 8h – 19h<br>Samedi : 9h – 17h<br>Dimanche : Fermé</span>
+        </div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-icon">⚡</div>
+        <div class="info-text">
+          <strong>Réponse rapide</strong>
+          <span>Nous répondons sous 24h ouvrées.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form-wrap">
+
+      <form id="contact-form" novalidate>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="name">Nom complet *</label>
+            <input type="text" id="name" name="name" placeholder="Jean Dupont" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" placeholder="jean@example.com" required />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <input type="tel" id="phone" name="phone" placeholder="+41 70 000 00 00" />
+          </div>
+          <div class="form-group">
+            <label for="service">Prestation souhaitée *</label>
+            <select id="service" name="service" required>
+              <option value="" disabled selected>Choisissez une prestation</option>
+              <option value="lavage">Lavage & Detailing</option>
+              <option value="ceramique">Traitement Céramique</option>
+              <option value="ppf">Pose de Film PPF</option>
+              <option value="pack">Pack complet</option>
+              <option value="autre">Autre / Renseignement</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="vehicle">Véhicule (marque & modèle)</label>
+          <input type="text" id="vehicle" name="vehicle" placeholder="ex : BMW M3 Competition 2023" />
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message *</label>
+          <textarea id="message" name="message" placeholder="Décrivez votre demande, l'état actuel du véhicule, vos attentes..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary form-submit">
+          Envoyer la demande
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+
+      </form>
+
+      <!-- Thank-you message -->
+      <div id="form-success" class="form-success">
+        <div class="success-icon">✓</div>
+        <h3>Message envoyé !</h3>
+        <p>Merci pour votre demande. Nous vous répondrons dans les 24h ouvrées.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">AUTO<span>DETAIL</span></div>
+      <div class="footer-copy">© 2026 AutoDetail Pro — Tous droits réservés</div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
