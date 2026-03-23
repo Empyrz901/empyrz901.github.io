@@ -74,6 +74,10 @@ const photos = [
       ? `<strong>${photo.caption}</strong>${photo.sub ? `<span>${photo.sub}</span>` : ''}`
       : '';
 
+    // Open lightbox on click
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', () => openLightbox(i));
+
     slide.appendChild(bg);
     slide.appendChild(img);
     slide.appendChild(caption);
@@ -123,6 +127,89 @@ const photos = [
   // Init counter
   if (counter) counter.textContent = `1 / ${photos.length}`;
   goTo(0);
+})();
+
+/* ─── Lightbox ──────────────────────────────────────────────── */
+(function () {
+  if (!photos.length) return;
+
+  // Build overlay
+  const lb = document.createElement('div');
+  lb.className = 'lightbox';
+  lb.innerHTML = `
+    <div class="lightbox-backdrop"></div>
+    <button class="lightbox-close" aria-label="Fermer">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+    <button class="lightbox-btn lightbox-prev" aria-label="Photo précédente">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+    <div class="lightbox-img-wrap">
+      <img class="lightbox-img" src="" alt="" />
+    </div>
+    <button class="lightbox-btn lightbox-next" aria-label="Photo suivante">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+    <div class="lightbox-caption">
+      <strong class="lightbox-title"></strong>
+      <span class="lightbox-sub"></span>
+    </div>
+    <div class="lightbox-counter"></div>`;
+  document.body.appendChild(lb);
+
+  const lbImg     = lb.querySelector('.lightbox-img');
+  const lbTitle   = lb.querySelector('.lightbox-title');
+  const lbSub     = lb.querySelector('.lightbox-sub');
+  const lbCounter = lb.querySelector('.lightbox-counter');
+  let lbIndex = 0;
+
+  function lbGoTo(n) {
+    lbIndex = (n + photos.length) % photos.length;
+    const p = photos[lbIndex];
+    lbImg.src = p.src;
+    lbImg.alt = p.caption || '';
+    lbTitle.textContent = p.caption || '';
+    lbSub.textContent   = p.sub     || '';
+    lbCounter.textContent = `${lbIndex + 1} / ${photos.length}`;
+  }
+
+  window.openLightbox = function (i) {
+    lbGoTo(i);
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lb.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+  lb.querySelector('.lightbox-backdrop').addEventListener('click', closeLightbox);
+  lb.querySelector('.lightbox-prev').addEventListener('click', () => lbGoTo(lbIndex - 1));
+  lb.querySelector('.lightbox-next').addEventListener('click', () => lbGoTo(lbIndex + 1));
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lbGoTo(lbIndex - 1);
+    if (e.key === 'ArrowRight') lbGoTo(lbIndex + 1);
+  });
+
+  // Swipe on lightbox
+  let lbStartX = 0;
+  lbImg.addEventListener('touchstart', e => { lbStartX = e.touches[0].clientX; }, { passive: true });
+  lbImg.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - lbStartX;
+    if (Math.abs(dx) > 40) lbGoTo(lbIndex + (dx < 0 ? 1 : -1));
+  });
 })();
 
 /* ─── Mobile nav burger ─────────────────────────────────────── */
