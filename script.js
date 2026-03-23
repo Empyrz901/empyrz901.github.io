@@ -43,6 +43,11 @@ const photos = [
     const slide = document.createElement('div');
     slide.className = 'carousel-slide';
 
+    // Blurred background layer (fills empty space for portrait photos)
+    const bg = document.createElement('div');
+    bg.className = 'slide-bg';
+    bg.style.backgroundImage = `url('${photo.src}')`;
+
     const img = document.createElement('img');
     img.src = photo.src;
     img.alt = photo.caption || '';
@@ -51,6 +56,7 @@ const photos = [
     // Fallback for missing images
     img.onerror = () => {
       img.style.display = 'none';
+      bg.style.display = 'none';
       const ph = document.createElement('div');
       ph.className = 'slide-placeholder';
       ph.innerHTML = `
@@ -68,6 +74,7 @@ const photos = [
       ? `<strong>${photo.caption}</strong>${photo.sub ? `<span>${photo.sub}</span>` : ''}`
       : '';
 
+    slide.appendChild(bg);
     slide.appendChild(img);
     slide.appendChild(caption);
     track.appendChild(slide);
